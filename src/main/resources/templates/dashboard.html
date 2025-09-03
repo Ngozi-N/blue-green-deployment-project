@@ -1,197 +1,193 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard - Goldencat Bank</title>
+    <title>Overview — Engee</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Engee subtle style -->
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #000000, #ffd700);
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        :root{
+          --bg:#f7f8fb;
+          --card:#ffffff;
+          --ink:#263238;
+          --muted:#667085;
+          --brand:#5465ff;
+          --brand-600:#3f51f5;
+          --accent:#2ec4b6;
+          --border:#e6e8ee;
+          --radius:16px;
+          --shadow:0 8px 24px rgba(18, 38, 63, 0.06);
+          --shadow-sm:0 4px 14px rgba(18, 38, 63, 0.05);
         }
-
-        .navbar-custom {
-            background-color: rgba(0, 0, 0, 0.7);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+        body{
+          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          background: var(--bg);
+          color: var(--ink);
+          margin:0;
+          min-height:100vh;
+          padding-top:64px; /* room for navbar */
         }
-
-        .navbar-custom a {
-            color: #ffffff !important;
+        .navbar-custom{
+          background: #ffffff;
+          border-bottom:1px solid var(--border);
         }
-
-        .navbar-custom .navbar-brand {
-            font-weight: bold;
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link{
+          color:#0f172a !important;
+          font-weight:600;
         }
-
-        .dashboard-container {
-            max-width: 1000px;
-            margin-top: 50px;
-            text-align: center;
+        .navbar-custom .nav-link{opacity:.8}
+        .navbar-custom .nav-link:hover{opacity:1}
+        .dashboard-container{
+          max-width: 1000px;
+          margin: 32px auto 48px;
         }
-
-        h2, h3 {
-            margin-bottom: 20px;
+        .hero{
+          background: linear-gradient(180deg, #ffffff, #fafbff);
+          border:1px solid var(--border);
+          border-radius: var(--radius);
+          box-shadow: var(--shadow);
+          padding: 28px;
+          text-align:center;
+          margin-bottom: 20px;
         }
-
-        .btn-primary {
-            background-color: #000000;
-            border: none;
-            transition: background-color 0.3s ease;
+        h2{font-size: clamp(24px, 3vw, 32px); margin:0}
+        h3{font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); margin-top: 6px}
+        .account-details{
+          background: var(--card);
+          border:1px solid var(--border);
+          border-radius: var(--radius);
+          box-shadow: var(--shadow);
+          padding: 22px;
+          margin-bottom: 22px;
         }
-
-        .btn-primary:hover {
-            background-color: #ffd700;
-            color: #000;
+        .section-card{
+          background: var(--card);
+          border:1px solid var(--border);
+          border-radius: var(--radius);
+          box-shadow: var(--shadow);
+          padding:16px;
+          margin-bottom:18px;
         }
-
-        .btn-success {
-            background-color: #28a745;
-            border: none;
+        .btn-primary{
+          background: var(--brand);
+          border:1px solid var(--brand);
+          border-radius:12px;
+          font-weight:600;
+          box-shadow: var(--shadow-sm);
+          transition:.2s ease;
         }
-
-        .btn-success:hover {
-            background-color: #218838;
+        .btn-primary:hover{background: var(--brand-600); transform: translateY(-1px)}
+        .btn-success{
+          background: var(--accent);
+          border:1px solid var(--accent);
+          border-radius:12px;
+          font-weight:700;
         }
-
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .btn-success:hover{filter:brightness(.95)}
+        .form-container{
+          background:#f9fbff;
+          border:1px solid var(--border);
+          border-radius:12px;
+          padding:14px;
         }
-
-        .account-details {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+        label{font-weight:600; color:#374151}
+        .form-control{
+          border-radius:12px;
+          border:1px solid var(--border);
+          background:#fcfdff;
         }
-
-        .error {
-            color: #ff4c4c;
+        .form-control:focus{
+          border-color: var(--brand);
+          box-shadow: 0 0 0 3px rgba(84,101,255,.12);
         }
-
-        .footer {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px 0;
-            font-size: 14px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer a {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer a:hover {
-            color: #ffecb3;
-            text-decoration: underline;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
+        .error{color:#b42318; font-weight:600; text-align:center}
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <a class="navbar-brand" href="#">Goldencat Bank</a>
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <a class="navbar-brand" href="#">Engee</a>
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="/transactions">Transactions</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Overview</a></li>
+        <li class="nav-item"><a class="nav-link" href="/transactions">Activity</a></li>
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
     </ul>
 </nav>
 
 <div class="container dashboard-container">
-    <div class="text-center">
+    <div class="hero">
         <h2 th:text="'Welcome, ' + ${account.username}"></h2>
-        <h3 th:text="'Current Balance: $' + ${account.balance}"></h3>
+        <h3 th:text="'Current balance: $' + ${account.balance}"></h3>
     </div>
 
-    <!-- Account Details Section -->
+    <!-- Account Details -->
     <div class="account-details">
-        <h4>Account Details</h4>
-        <p><strong>Account Number:</strong> <span th:text="${account.id}"></span></p> <!-- Use account.id for account number -->
-        <p><strong>Account Type:</strong> Savings</p>
+        <h4 class="mb-3">Account details</h4>
+        <p><strong>Account Number:</strong> <span th:text="${account.id}"></span></p>
+        <p><strong>Account type:</strong> Savings</p>
     </div>
 
     <div class="row justify-content-center">
-        <!-- Deposit Section -->
+        <!-- Deposit -->
         <div class="col-md-3">
-            <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#depositForm" aria-expanded="false" aria-controls="depositForm">
-                Deposit
-            </button>
-            <div class="collapse mt-3" id="depositForm">
-                <form method="post" action="/deposit" class="form-container">
-                    <div class="form-group">
-                        <label>Amount:</label>
-                        <input type="number" class="form-control" name="amount" required />
-                    </div>
-                    <button type="submit" class="btn btn-block btn-success">Submit</button>
-                </form>
+            <div class="section-card">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#depositForm" aria-expanded="false" aria-controls="depositForm">
+                    Deposit
+                </button>
+                <div class="collapse mt-3" id="depositForm">
+                    <form method="post" action="/deposit" class="form-container">
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <!-- Withdraw Section -->
+        <!-- Withdraw -->
         <div class="col-md-3">
-            <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#withdrawForm" aria-expanded="false" aria-controls="withdrawForm">
-                Withdraw
-            </button>
-            <div class="collapse mt-3" id="withdrawForm">
-                <form method="post" action="/withdraw" class="form-container">
-                    <div class="form-group">
-                        <label>Amount:</label>
-                        <input type="number" class="form-control" name="amount" required />
-                    </div>
-                    <button type="submit" class="btn btn-block btn-success">Submit</button>
-                </form>
+            <div class="section-card">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#withdrawForm" aria-expanded="false" aria-controls="withdrawForm">
+                    Withdraw
+                </button>
+                <div class="collapse mt-3" id="withdrawForm">
+                    <form method="post" action="/withdraw" class="form-container">
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <!-- Transfer Section -->
+        <!-- Transfer -->
         <div class="col-md-3">
-            <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#transferForm" aria-expanded="false" aria-controls="transferForm">
-                Transfer Money
-            </button>
-            <div class="collapse mt-3" id="transferForm">
-                <form method="post" action="/transfer" class="form-container">
-                    <div class="form-group">
-                        <label>Recipient Username:</label>
-                        <input type="text" class="form-control" name="toUsername" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Amount:</label>
-                        <input type="number" class="form-control" name="amount" required />
-                    </div>
-                    <button type="submit" class="btn btn-block btn-success">Submit</button>
-                </form>
+            <div class="section-card">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse" data-target="#transferForm" aria-expanded="false" aria-controls="transferForm">
+                    Transfer
+                </button>
+                <div class="collapse mt-3" id="transferForm">
+                    <form method="post" action="/transfer" class="form-container">
+                        <div class="form-group">
+                            <label>Recipient username:</label>
+                            <input type="text" class="form-control" name="toUsername" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <p th:if="${error != null}" th:text="${error}" class="error text-center mt-3"></p>
+    <p th:if="${error != null}" th:text="${error}" class="error mt-3"></p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

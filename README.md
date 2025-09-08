@@ -42,13 +42,12 @@ This project showcases how to implement a **Blue-Green Deployment strategy** in 
 ## 🌐 Architecture
 
 ![Architecture Diagram](./architecture.png)
-*(Add the architecture diagram PNG into the repo so it renders here)*
 
 ---
 
 ## 📖 Learn More
 
-* 📝 [Medium Article]([https://medium.com/p/61eeae3dda46](https://aws.plainenglish.io/production-level-blue-green-deployment-with-jenkins-sonarqube-nexus-and-aws-eks-61eeae3dda46)) 
+* 📝 [Medium Article]([https://aws.plainenglish.io/production-level-blue-green-deployment-with-jenkins-sonarqube-nexus-and-aws-eks-61eeae3dda46]) 
 
 ---
 

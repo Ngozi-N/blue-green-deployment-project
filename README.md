@@ -2,7 +2,7 @@
 
 This project showcases how to implement a **Blue-Green Deployment strategy** in a production-style CI/CD pipeline. By combining **Jenkins, SonarQube, Nexus, Terraform, and AWS EKS**, we achieve **zero-downtime deployments** with seamless rollouts and easy rollbacks.
 
-## 📌 Project Overview
+## Project Overview
 
 * **Infrastructure**:
 
@@ -16,7 +16,7 @@ This project showcases how to implement a **Blue-Green Deployment strategy** in 
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 * **Zero Downtime** → Users stay connected even during deployments.
 * **Blue-Green Rollouts** → Deploy to idle (Green) environment, then switch traffic from Blue.
@@ -27,7 +27,7 @@ This project showcases how to implement a **Blue-Green Deployment strategy** in 
 
 ---
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 
 * **AWS EC2** → Servers for Jenkins, Nexus, SonarQube, and Main server
 * **Terraform** → Infrastructure as Code for AWS EKS
@@ -39,18 +39,18 @@ This project showcases how to implement a **Blue-Green Deployment strategy** in 
 
 ---
 
-## 🌐 Architecture
+## Architecture
 
 ![Architecture Diagram](./architecture.png)
 
 ---
 
-## 📖 Learn More
+## Learn More
 
-* 📝 [Medium Article]([https://aws.plainenglish.io/production-level-blue-green-deployment-with-jenkins-sonarqube-nexus-and-aws-eks-61eeae3dda46]) 
+* 📝 [Medium Article](https://aws.plainenglish.io/production-level-blue-green-deployment-with-jenkins-sonarqube-nexus-and-aws-eks-61eeae3dda46) 
 
 ---
 
-✅ With this pipeline, deployments are **automated, reliable, and rollback-ready**, ensuring continuous delivery without downtime.
+With this pipeline, deployments are **automated, reliable, and rollback-ready**, ensuring continuous delivery without downtime.
 
 ---

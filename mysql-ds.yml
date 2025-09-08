@@ -20,7 +20,7 @@ spec:
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "Test@123"
+          value: "Test@12"
         - name: MYSQL_DATABASE
           value: "bankappdb"
         ports:

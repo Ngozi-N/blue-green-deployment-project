@@ -48,7 +48,7 @@ This project showcases how to implement a **Blue-Green Deployment strategy** in 
 
 ## 📖 Learn More
 
-* 📝 [Medium Article](https://medium.com/p/61eeae3dda46) 
+* 📝 [Medium Article]([https://medium.com/p/61eeae3dda46](https://aws.plainenglish.io/production-level-blue-green-deployment-with-jenkins-sonarqube-nexus-and-aws-eks-61eeae3dda46)) 
 
 ---
 
